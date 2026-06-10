@@ -1,5 +1,11 @@
 # 🫁 X-Ray Hastalık Tanı Sistemi
 
+### 🔴 [▶ UYGULAMAYI ÇALIŞTIR (Canlı Demo)](https://xray-hastalik-tani-sistemi-4kamunralkhibsfvfcqozf.streamlit.app/)
+
+> Yukarıdaki linke tıklayarak uygulamayı tarayıcınızda çalıştırabilirsiniz. Kurulum gerektirmez.
+
+---
+
 Göğüs röntgeni (X-ray) görüntülerini kullanarak **Normal (Sağlıklı)** ve **Zatürre (Pnömoni)** teşhisi yapan derin öğrenme tabanlı yapay zeka sistemi.
 
 > **Öğrenci:** Mehmet Emin Küçük (233908073)  
