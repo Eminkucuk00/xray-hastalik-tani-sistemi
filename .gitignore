@@ -1,0 +1,19 @@
+# Dataset (çok büyük - GitHub'a yüklenmez)
+dataset/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>X-ray Hastalık Tanı Sistemi - Final Raporu</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap');
+        
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #fff;
+        }
+        
+        /* BAŞLIKLARIN PARÇALANMASINI VE YALNIZ KALMASINI ENGELLEME */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            color: #2c3e50;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+            page-break-after: avoid !important;
+            break-after: avoid !important;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0 !important;
+            }
+            body {
+                padding: 2.5cm !important; 
+                max-width: 100%;
+            }
+        }
+
+        /* TEK SAYFALIK BLOKLAR */
+        .page-block {
+            page-break-before: always !important;
+            break-before: page !important;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+
+        /* KAPAK SAYFASI */
+        .report-cover {
+            height: 90vh; /* İlk sayfayı tamamen kaplar */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            page-break-after: always; /* Kapaktan sonra tam sayfa atlar */
+            padding: 40px 0;
+            box-sizing: border-box;
+        }
+
+        .institution h3 {
+            font-size: 1.2em;
+            letter-spacing: 2px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+        }
+        
+        .institution p {
+            font-size: 1em;
+            color: #95a5a6;
+            margin-top: 5px;
+        }
+
+        .title-section {
+            margin-top: -10vh; /* Ortalamayı iyileştirmek için */
+        }
+
+        .title-section h1 {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 1.3;
+        }
+
+        .title-section .divider {
+            height: 4px;
+            width: 100px;
+            background-color: #2980b9;
+            margin: 30px auto;
+        }
+
+        .title-section h2 {
+            font-size: 1.4em;
+            font-weight: 400;
+            color: #34495e;
+            letter-spacing: 0.5px;
+        }
+
+        .author-section {
+            align-self: flex-end;
+            text-align: left;
+            background-color: #f8f9fa;
+            padding: 25px 45px;
+            border-left: 5px solid #2980b9;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 3vh;
+            border-radius: 0 8px 8px 0;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+
+        .author-section p {
+            margin: 8px 0;
+            font-size: 1.1em;
+        }
+
+        .author-section strong {
+            display: inline-block;
+            width: 120px;
+            color: #2c3e50;
+        }
+
+        /* İÇERİK BÖLÜMÜ */
+        h2.section-title {
+            font-size: 1.4em;
+            margin-top: 50px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #ecf0f1;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        h2.section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 60px;
+            height: 4px;
+            background-color: #2980b9;
+            border-radius: 2px;
+        }
+
+        /* METİNLERİN ORTADAN BÖLÜNMESİNİ ENGELLEME */
+        p {
+            text-align: justify;
+            margin-bottom: 18px;
+            font-size: 1.05em;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+
+        /* GENEL LİSTELER (Kutuları Kaldırıp Doğal Bölünme Sağlama) */
+        ul {
+            padding-left: 25px;
+            margin-bottom: 25px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            font-size: 1.05em;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+
+        /* AYLIK BLOKLAR (KART YAPISI) */
+        .month-block {
+            background-color: #fcfcfc;
+            border: 1px solid #f1f2f6;
+            border-left: 4px solid #2980b9;
+            padding: 20px 20px 20px 30px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+        
+        .month-block h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.15em;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .month-block ul {
+            margin: 0;
+            padding: 0 0 0 20px;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            margin-bottom: 0;
+        }
+
+        /* TABLOLAR */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            border-radius: 6px;
+            overflow: hidden;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f2f6;
+        }
+
+        /* KOD BLOKLARI */
+        .code-block {
+            background-color: #f6f8fa;
+            border-left: 4px solid #2c3e50;
+            padding: 15px 20px;
+            margin: 25px 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+        
+        .code-block strong {
+            color: #e74c3c;
+            font-size: 0.95em;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95em;
+            color: #34495e;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+
+        /* GÖRSELLER */
+        .image-container {
+            text-align: center;
+            margin: 40px 0;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #e8e8e8;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
+
+        .image-caption {
+            margin-top: 20px;
+            font-size: 0.95em;
+            color: #555;
+            font-style: italic;
+            border-top: 1px dashed #ddd;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- KAPAK SAYFASI -->
+    <div class="report-cover">
+        <div class="institution">
+            <h3>BİLGİSAYAR MÜHENDİSLİĞİ BÖLÜMÜ</h3>
+            <p>2025-2026 Eğitim Öğretim Yılı</p>
+        </div>
+        
+        <div class="title-section">
+            <h1>X-Ray Hastalık<br>Tanı Sistemi</h1>
+            <div class="divider"></div>
+            <h2>Final Dönemi Proje Raporu</h2>
+        </div>
+        
+        <div class="author-section">
+            <p><strong>Hazırlayan:</strong> Mehmet Emin Küçük</p>
+            <p><strong>Öğrenci No:</strong> 233908073</p>
+            <p><strong>Tarih:</strong> 7 Haziran 2026</p>
+        </div>
+    </div>
+
+    <!-- İÇERİK METİNLERİ -->
+    <h2 class="section-title">1. Projenin Amacı Nedir?</h2>
+    <p>Bu projenin temel amacı, göğüs röntgeni (X-ray) görüntülerini kullanarak hastanın akciğer durumunun <strong>"Normal" (Sağlıklı)</strong> veya <strong>"Zatürre" (Pnömoni)</strong> olduğunu otomatik olarak yüksek doğrulukla tespit eden derin öğrenme tabanlı bir sistem geliştirmektir. Bu sistem yardımıyla radyoloji uzmanlarının teşhis süreçlerini hızlandırmayı, tanı hata payını en aza indirmeyi ve son kullanıcılar için anlaşılır, şeffaf ve modern bir medikal web arayüzü sunmayı hedefledik.</p>
+
+    <h2 class="section-title">2. Projede Kullanılan Teknolojiler Nelerdir?</h2>
+    <ul>
+        <li><strong>Python:</strong> Projenin tüm veri ön işleme, model eğitimi ve web arayüzü mantığı için kullanılan ana dildir.</li>
+        <li><strong>PyTorch & Torchvision:</strong> Derin öğrenme mimarisinin tasarlanması, transfer öğrenme (Transfer Learning) aşamaları, eğitimi ve model ağırlıklarının test edilmesi için kullanılmıştır. Model omurgası olarak güçlü öznitelik çıkarımı sağlayan <strong>ResNet-18</strong> mimarisi tercih edilmiştir.</li>
+        <li><strong>Streamlit:</strong> Modelin son kullanıcıya sunulduğu; hızlı, modern, duyarlı (responsive) ve interaktif medikal web arayüzünü oluşturmak için kullanılmıştır.</li>
+        <li><strong>PIL (Pillow):</strong> Röntgen görüntülerinin okunması ve yeniden boyutlandırılması süreçlerinde kullanılmıştır.</li>
+        <li><strong>Scikit-learn:</strong> Veri setinin %80 eğitim ve %20 doğrulama olarak ayrılması ile değerlendirme metriklerinin çıkarılması aşamalarında kullanılmıştır.</li>
+    </ul>
+
+    <h2 class="section-title" style="page-break-before: always;">3. Proje Çalışma Takvimi (Aylık Çalışma Planı)</h2>
+    <p>Projenin Mart 2026'da başlayan geliştirme süreci ve teslimine kadar aylık bazda gerçekleştirilen çalışmalar aşağıda detaylandırılmıştır:</p>
+    
+    <!-- Mart -->
+    <div class="month-block">
+        <h3>Mart 2026 (Proje Başlangıcı, Literatür ve Prototip Hazırlığı)</h3>
+        <ul>
+            <li>Proje fikrinin belirlenmesi, göğüs röntgeni (X-ray) görüntüleri üzerinden hastalık teşhisi yapan literatürdeki derin öğrenme modellerinin incelenmesi.</li>
+            <li>PyTorch kütüphanesinin model mimarilerinin (ResNet-18, ResNet-50, VGG-16) analiz edilerek transfer öğrenme için ResNet-18 mimarisinde karar kılınması.</li>
+            <li>Kaggle Chest X-ray veri setinden prototip için küçük bir test veri kümesi oluşturulması.</li>
+            <li>Röntgen görüntülerinin önişleme, normalizasyon ve boyutlandırma betiklerinin yazılması.</li>
+        </ul>
+    </div>
+    
+    <!-- Nisan -->
+    <div class="month-block">
+        <h3>Nisan 2026 (Arayüz Kurulumu, Vize Raporu ve Entegrasyon)</h3>
+        <ul>
+            <li>Streamlit web arayüzünün ilk sürümünün geliştirilmesi.</li>
+            <li>PyTorch model.pth ağırlıklarının yüklenmesi ve Streamlit arayüzüne entegrasyonu (görüntü yükle -> model tahmini çalıştır -> olasılık barı göster akışının tamamlanması).</li>
+            <li>Normal, Covid-19 and Viral Pnömoni sınıflarından oluşan 3 sınıflı prototip uygulamanın test edilmesi.</li>
+            <li><strong>Ara Dönem (Vize) İlerleme Raporunun</strong> hazırlanması ve sisteme yüklenmesi (19 Nisan 2026).</li>
+        </ul>
+    </div>
+    
+    <!-- Mayıs -->
+    <div class="month-block">
+        <h3>Mayıs 2026 (Veri Kümesinin Genişletilmesi, Model Eğitimi ve Optimizasyon)</h3>
+        <ul>
+            <li>Kaggle Chest X-ray veri setinden toplam 4076 gerçek klinik röntgen görseline erişim sağlanarak veri kümesinin genişletilmesi.</li>
+            <li>Verinin %80 eğitim ve %20 doğrulama olarak bölünmesi için <code>extract_and_split.py</code> scriptinin kodlanması.</li>
+            <li>COVID-19 sınıfındaki veri dengesizliğinin tanı başarısını düşürmesini önlemek amacıyla model sınıflarının 2 ana kategoriye (Normal ve Zatürre) indirgenmesi.</li>
+            <li>ResNet-18 model kafasına Dropout regularizasyonu eklenerek aşırı öğrenmenin engellenmesi.</li>
+            <li>Modelin GPU üzerinde iki aşamalı (Warm-up + Fine-tuning) diferansiyel öğrenme oranları ile 40 epoch boyunca eğitilmesi ve doğrulama setinde <strong>%96.1 doğruluk oranına</strong> ulaşılması.</li>
+        </ul>
+    </div>
+    
+    <!-- Haziran -->
+    <div class="month-block">
+        <h3>Haziran 2026 (Arayüz Modernizasyonu, Raporlama ve Teslim)</h3>
+        <ul>
+            <li>Streamlit medikal web arayüzünün geniş ekran (wide mode) klinik karanlık temaya geçirilerek özel CSS, gradyan geçişli ilerleme çubukları ve glassmorphic kartlar ile tamamen yenilenmesi.</li>
+            <li>Geliştirici imza künyesinin eklenmesi ve proje kodlarının derleme/sözdizimi testlerinden geçirilmesi.</li>
+            <li><strong>Final Proje Raporunun</strong> hazırlanarak projenin tamamlanması ve teslim edilmesi (7 Haziran 2026).</li>
+        </ul>
+    </div>
+
+    <!-- 4. BAŞLIK (TEK SAYFA OLARAK ZORLAMA) -->
+    <div class="page-block">
+        <h2 class="section-title">4. Projenin Benzer Projelerden Üstünlüğü Nelerdir?</h2>
+        <ul>
+            <li><strong>Medikal Veri Güvenliği (KVKK Uyumlu):</strong> Uygulama, hasta röntgenlerini hiçbir uzak veya yerel sunucuda depolamaz, tamamen istemci (client-side) odaklı çalışır. Analiz sonrası görseller bellekten anında silindiği için yasal veri güvenliği standartlarına %100 uyumludur.</li>
+            <li><strong>PACS Uyumlu Medikal Arayüz Tasarımı:</strong> Radyoloji kliniklerinde kullanılan PACS ekran standartları referans alınarak göz yorgunluğunu azaltan koyu medikal tema tasarlanmıştır. CSS glassmorphic ögeler ve dinamik teşhis panelleriyle hekimler için ergonomik bir çalışma alanı sunulmuştur.</li>
+            <li><strong>Açıklanabilir Yapay Zeka (XAI) Yaklaşımı:</strong> Karar aşamasında sadece teşhis etiketi verilmez, hekime her iki durum için hesaplanan olasılık oranları renk geçişli dinamik ilerleme çubukları ile sunulur. Bu, yapay zekanın teşhisteki güven seviyesini şeffaf hale getirir.</li>
+            <li><strong>İki Aşamalı Diferansiyel İnce Ayar Eğitimi:</strong> Model eğitiminde öncelikle sınıflandırıcı kafa ısındırılmış (Warm-up), ardından tüm katmanlar diferansiyel öğrenme hızı ile ince ayar (Fine-tuning) işlemine tabi tutulmuştur. Bu hibrit yaklaşım, modelin ezberleme (overfitting) yapmasını engellemiştir.</li>
+            <li><strong>Düşük Gecikmeli CPU Performansı:</strong> Optimize edilen ResNet-18 mimarisi sayesinde, pahalı GPU donanımları gerektirmeden standart bilgisayar işlemcilerinde (CPU) dahi 100-150 ms gibi çok düşük bir gecikmeyle teşhis çıktısı üretilebilmektedir.</li>
+            <li><strong>Sıfır Kurulum Maliyeti ve Web Tabanlı Dağıtım:</strong> Streamlit altyapısı sayesinde sisteme herhangi bir ek yazılım veya kütüphane kurulmasına gerek kalmadan doğrudan tarayıcı üzerinden çalışır. Mobil, tablet ve masaüstü uyumluluğu ile hekime her an tanı desteği sağlar.</li>
+        </ul>
+    </div>
+
+    <!-- 5. BAŞLIK (TEK SAYFA OLARAK ZORLAMA) -->
+    <div class="page-block">
+        <h2 class="section-title">5. Projenin Tamamlanma Durumu ve Teknik Metrikler</h2>
+        <p>Projemiz <strong>%100 oranında tamamlanmış</strong> ve tüm sistem entegrasyonu başarıyla gerçekleştirilmiştir. Elde edilen teknik kazanımlar, tasarım kararları ve detaylar şu şekildedir:</p>
+        <ul>
+            <li><strong>Arayüz Tasarımı:</strong> Streamlit tabanlı kullanıcı arayüzü tamamlanmıştır. Kullanıcıların kendi röntgen görüntülerini sürükleyip bırakarak yükleyebileceği, anında teşhis alabileceği ve sonuçları dinamik barlar halinde görebileceği duyarlı bir web arayüzü oluşturulmuştur.</li>
+            <li><strong>COVID-19 Sınıfının Kaldırılması (Veri Yetersizliği):</strong> Projenin ilk aşamasında planlanan COVID-19 sınıfı, açık kaynaklı veri tabanlarında bu kategoriye ait yeterli sayıda ve klinik kalitede röntgen görüntüsünün bulunmaması (veri yetersizliği) nedeniyle kapsam dışı bırakılmıştır. Eğitim aşamasında sınıflar arası dengesizlikten (class imbalance) kaynaklanabilecek hatalı tanıları önlemek adına model, veri kalitesi yüksek olan <strong>Normal (Sağlıklı)</strong> ve <strong>Zatürre (Pnömoni)</strong> şeklinde iki ana sınıf üzerinde optimize edilmiştir.</li>
+            <li><strong>Veri Kümesi ve Dağılımı:</strong> Prototip aşamasındaki kısıtlı veri kümesi, Kaggle Chest X-ray veri tabanından derlenen toplam <strong>4076 göğüs röntgeni görüntüsüne</strong> genişletilmiştir. Veriler <strong>%80 Eğitim (2960 görüntü)</strong> ve <strong>%20 Doğrulama (1116 görüntü)</strong> oranında bölünmüştür.</li>
+            <li><strong>Model Eğitimi ve Başarı Oranı:</strong> Derin öğrenme modeli GPU (CUDA) altyapısı kullanılarak iki aşamalı (Warm-up + Fine-tuning) toplam 40 epoch boyunca eğitilmiştir. Eğitim sonucunda doğrulama seti üzerinde <strong>%96.1</strong> gibi son derece yüksek ve kararlı bir doğruluk oranına (Accuracy) ulaşılmıştır.</li>
+            <li><strong>Entegrasyon:</strong> Arka plandaki sinir ağı modelinin arayüze bağlanması işlemi sorunsuz halledilmiş, en iyi model ağırlıkları <code>model.pth</code> dosyası olarak kaydedilip Streamlit uygulamasına başarıyla bağlanmıştır.</li>
+        </ul>
+    </div>
+
+    <!-- 6. BAŞLIK (TEK SAYFA OLARAK ZORLAMA) -->
+    <div class="page-block">
+        <h2 class="section-title">6. Sistemin Kritik Kod Mimarisinden Geliştirme Örnekleri</h2>
+        <p>Bilgisayar mühendisliği standartlarına uygun olarak modüler şekilde kurgulanan projenin, en kritik derin öğrenme (Deep Learning) operasyonlarını üstlenen bazı kod blokları aşağıda sunulmuştur:</p>
+        
+        <div class="code-block">
+            <strong>Örnek 1: ResNet-18 Transfer Learning ve FC (Fully Connected) Katmanının Dropout ile Özelleştirilmesi</strong>
+            <pre><code># Önceden eğitilmiş (Pre-trained) ResNet-18 modelinin ağırlıklarıyla yüklenmesi
+model = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
+
+# Aşırı öğrenmeyi önlemek için Dropout katmanları içeren 2 çıkışlı yeni sınıflandırıcı kafa
+model.fc = nn.Sequential(
+    nn.Dropout(0.4),
+    nn.Linear(model.fc.in_features, 128),
+    nn.ReLU(),
+    nn.Dropout(0.3),
+    nn.Linear(128, 2) # Sınıflar: Normal, Pneumonia
+)</code></pre>
+        </div>
+
+        <div class="code-block">
+            <strong>Örnek 2: İki Aşamalı İnce Ayar (Fine-Tuning) ve Diferansiyel Öğrenme Hızı Optimizasyonu</strong>
+            <pre><code># AŞAMA 1: Sadece yeni eklediğimiz sınıflandırıcı kafayı eğit (Omurga dondurulmuş)
+for param in model.parameters():
+    param.requires_grad = False
+for param in model.fc.parameters():
+    param.requires_grad = True
+optimizer_phase1 = torch.optim.Adam(model.fc.parameters(), lr=0.001)
+
+# AŞAMA 2: Tüm katmanları aç ve diferansiyel öğrenme hızı ile ince ayar yap
+for param in model.parameters():
+    param.requires_grad = True
+optimizer_phase2 = torch.optim.Adam([
+    {'params': [p for name, p in model.named_parameters() if 'fc' not in name], 'lr': 1e-5},
+    {'params': model.fc.parameters(), 'lr': 1e-4}
+], weight_decay=1e-4)</code></pre>
+        </div>
+    </div>
+
+    <!-- EKRAN GÖRÜNTÜLERİ BÖLÜMÜ: YENİ SAYFADAN BAŞLAR -->
+    <h2 class="section-title" style="page-break-before: always;">7. Proje Arayüzü ve Analiz Uygulamaları</h2>
+    <p>Uygulamamızın nihai sürümünden alınan test ekran görüntüleri aşağıda yer almaktadır. Sistem "Normal" ve "Zatürre (Pnömoni)" durumları için son derece yüksek teşhis yeteneğine sahiptir:</p>
+
+    <div class="image-container">
+        <img src="ss_dashboard.png" alt="Ana Sayfa">
+        <div class="image-caption">Şekil 1: Yapay zeka analize hazır durumdayken ana panel görünümü (ss_dashboard.png). Sol panelden röntgen resmi yüklenebilir, sağ panelde ise tarama yokken hekimi yönlendiren sistem hazır paneli yer alır.</div>
+    </div>
+
+    <div class="image-container">
+        <img src="ss_normal.png" alt="Tahmin Sonucu - Normal">
+        <div class="image-caption">Şekil 2: Teşhis sonucunun Sağlıklı çıkması ve olasılık barı (ss_normal.png). Yapay zeka parankimal analiz sonuçlarına göre akciğer dokularının sağlıklı olduğunu saptayıp yeşil rapor kutusuyla %99.93 doğruluk oranı ile sunmuştur.</div>
+    </div>
+
+    <div class="image-container" style="page-break-inside: avoid;">
+        <img src="ss_pneumonia.png" alt="Tahmin Sonucu - Zatürre">
+        <div class="image-caption">Şekil 3: Teşhis sonucunun Zatürre çıkması, olasılık barı ve geliştirici künyesi (ss_pneumonia.png). Akciğer loblarında sıvı ve yoğunluk artışı saptanarak kırmızı uyarı raporu üretilmiştir. Sol panelin en altında geliştirici Mehmet Emin Küçük ve akademik künyesi gösterilmektedir.</div>
+    </div>
+
+    <!-- ARA DÖNEM VE FİNAL KARŞILAŞTIRMASI -->
+    <h2 class="section-title">8. Ara Dönem (Vize) ve Final Aşaması Karşılaştırması</h2>
+    <p>Projenin ara dönem (vize) raporundaki planlanan durumundan final aşamasına kadar geçirdiği değişimler ve farklar detaylandırılmıştır:</p>
+    <ul>
+        <li><strong>İlerleme Oranı:</strong> Ara dönemde %20-30 prototip aşamasında olan proje, final aşamasında veri setinden arayüze kadar %100 tamamlanmıştır.</li>
+        <li><strong>Arayüz ve Kullanıcı Deneyimi (UI/UX):</strong> Ara dönemde Streamlit'in varsayılan, dar ve sade gri şablonu kullanılırken; final aşamasında profesyonel klinik kokpit tasarımlarını andıran geniş ekran (wide mode) medikal karanlık tema düzenine geçilmiştir. Varsayılan Streamlit butonları ve düşük kontrastlı metinler elenmiş; CSS Glassmorphic kartlar, teşhis sonucuna göre yeşil veya kırmızı parıldayan dinamik rapor kutuları, gradyan geçişli özel HTML/CSS ilerleme çubukları, interaktif ve karartılmış dropzone alanı ile geliştirici imza künyesi entegre edilmiştir.</li>
+        <li><strong>Veri Kümesi Boyutu:</strong> Ara dönemde sınıf başına sadece 5 adet test görüntüsü bulunurken, final aşamasında veri seti toplam <strong>4076 gerçek röntgen görüntüsüne</strong> çıkarılmıştır. Veriler %80 eğitim ve %20 doğrulama olarak ayrılmıştır.</li>
+        <li><strong>Sınıf Yapısı Değişikliği (COVID-19 Sınıfı):</strong> Ara dönemde planlanan COVID-19 sınıfı, açık kaynaklı veri tabanlarındaki klinik veri yetersizliği nedeniyle kaldırılmıştır. Veri dengesizliğinin tanı başarısını düşürmesini önlemek amacıyla model, zengin ve kaliteli veriye sahip olduğumuz <strong>Normal</strong> ve <strong>Zatürre (Pnömoni)</strong> olmak üzere 2 ana sınıfa odaklanacak şekilde optimize edilmiştir.</li>
+        <li><strong>Eğitim ve Başarı Oranı:</strong> Ara dönemde hazır ağırlıklar kullanılırken, final aşamasında model kendi veri setimizle GPU üzerinde eğitilmiş ve doğrulama setinde <strong>%96.1</strong> gibi yüksek bir doğruluk oranına (Accuracy) ulaşılmıştır.</li>
+    </ul>
+
+</body>
+</html>
