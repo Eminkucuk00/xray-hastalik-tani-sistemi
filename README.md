@@ -1,69 +1,99 @@
-<div align="center">
-  <img src="https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white" alt="PyTorch" />
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
-  <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask" />
-</div>
+# 🫁 X-Ray Hastalık Tanı Sistemi
 
-<h1 align="center">X-Ray (Röntgen) Görüntülerinden Zatürre (Pneumonia) Tanı Sistemi 🩻</h1>
+### 🔴 [▶ UYGULAMAYI ÇALIŞTIR (Canlı Demo)](https://xray-hastalik-tani-sistemi-4kamunralkhibsfvfcqozf.streamlit.app/)
 
-<p align="center">
-  Derin öğrenme (Deep Learning) teknikleri kullanılarak, akciğer röntgen görüntülerinden hastada <b>Zatürre (Pneumonia)</b> olup olmadığını yüksek doğrulukla tespit eden yapay zeka destekli bir tanı sistemi.
-</p>
+> Yukarıdaki linke tıklayarak uygulamayı tarayıcınızda çalıştırabilirsiniz. Kurulum gerektirmez.
 
 ---
 
-## 🚀 Proje Hakkında
+Göğüs röntgeni (X-ray) görüntülerini kullanarak **Normal (Sağlıklı)** ve **Zatürre (Pnömoni)** teşhisi yapan derin öğrenme tabanlı yapay zeka sistemi.
 
-Bu proje, tıp alanındaki uzmanlara destek olmak ve teşhis süreçlerini hızlandırmak amacıyla geliştirilmiştir. Binlerce açık kaynaklı röntgen (X-Ray) görüntüsü kullanılarak eğitilen Convolutional Neural Network (Evrişimli Sinir Ağı - CNN) modeli, sisteme yüklenen yeni röntgen görüntülerini analiz ederek saniyeler içerisinde "Sağlıklı" veya "Zatürre (Pneumonia)" tahmininde bulunur.
-
-Proje, yalnızca bir makine öğrenmesi modeli olmakla kalmayıp, kullanıcı dostu bir arayüz/API ile entegre edilerek son kullanıcıya hitap edecek şekilde tasarlanmıştır.
-
-## ✨ Temel Özellikler
-
-- **Yüksek Doğruluk:** Özel CNN mimarisi sayesinde röntgen görüntülerindeki ince detayları analiz eder.
-- **Hızlı Teşhis:** Arayüze yüklenen görüntüyü saniyeler içinde işler ve sonucu döndürür.
-- **Kullanıcı Dostu API/Web:** `app.py` üzerinden sunulan yapıyla tıp çalışanları tarafından kolayca kullanılabilir.
-- **Büyük Veri Kümesi:** Model eğitimi sırasında overfitting'i engellemek için 4000'den fazla akciğer röntgeni ile eğitilmiş ve doğrulanmıştır.
-
-## 🛠 Kullanılan Teknolojiler
-
-- **Yapay Zeka & Makine Öğrenmesi:** PyTorch / Torchvision
-- **Veri İşleme & Görselleştirme:** NumPy, Pandas, Matplotlib, PIL
-- **Backend (Sunucu):** Flask (Python)
-- **Model Formatı:** `.pth` (PyTorch Model Weights)
-
-## ⚙️ Kurulum ve Çalıştırma
-
-Projeyi kendi yerel bilgisayarınızda (localhost) çalıştırmak için aşağıdaki adımları izleyebilirsiniz.
-
-### Ön Koşullar
-- Python 3.8 veya üzeri bir sürümün yüklü olması gerekmektedir.
-
-### Adımlar
-
-1. **Projeyi Klonlayın:**
-   ```bash
-   git clone https://github.com/Eminkucuk00/xray-hastalik-tani-sistemi.git
-   cd xray-hastalik-tani-sistemi
-   ```
-
-2. **Gerekli Kütüphaneleri Yükleyin:**
-   Eğer projenin içinde bir `requirements.txt` bulunuyorsa doğrudan kurabilirsiniz, yoksa temel kütüphaneleri yükleyin:
-   ```bash
-   pip install torch torchvision flask numpy pillow matplotlib
-   ```
-
-3. **Uygulamayı Başlatın:**
-   ```bash
-   python app.py
-   ```
-
-4. **Tarayıcıda Görüntüleyin:**
-   Uygulama başarıyla çalıştığında genellikle `http://127.0.0.1:5000` adresinden sisteme erişebilir ve yeni röntgen görüntülerini test edebilirsiniz.
-
-## 📸 Ekran Görüntüleri ve Çıktılar
-
-*(Buraya uygulamanızın arayüzünden ve modelin teşhis sonuçlarından ekran görüntüleri eklenecektir.)*
+> **Öğrenci:** Mehmet Emin Küçük (233908073)  
+> **Ders:** Bilgisayar Mühendisliği Tasarım Projesi  
+> **Tarih:** Haziran 2026
 
 ---
-*Bu proje Emin Küçük tarafından geliştirilmiştir.*
+
+## 📸 Ekran Görüntüleri
+
+| Ana Sayfa | Sağlıklı Sonuç | Zatürre Teşhisi |
+|:---------:|:--------------:|:---------------:|
+| ![Dashboard](ss_dashboard.png) | ![Normal](ss_normal.png) | ![Pneumonia](ss_pneumonia.png) |
+
+---
+
+## 🚀 Projeyi Çalıştırma (Kurulum)
+
+### Gereksinimler
+- Python 3.8 veya üzeri
+- pip (Python paket yöneticisi)
+
+### Adım 1: Repoyu Klonlayın
+```bash
+git clone https://github.com/Eminkucuk00/xray-hastalik-tani-sistemi.git
+cd xray-hastalik-tani-sistemi
+```
+
+### Adım 2: Gerekli Kütüphaneleri Yükleyin
+```bash
+pip install -r requirements.txt
+```
+
+### Adım 3: Uygulamayı Başlatın
+```bash
+streamlit run app.py
+```
+
+Uygulama otomatik olarak tarayıcınızda açılacaktır: `http://localhost:8501`
+
+---
+
+## 🧠 Teknik Detaylar
+
+| Özellik | Detay |
+|---------|-------|
+| **Model Mimarisi** | ResNet-18 (Transfer Learning) |
+| **Eğitim Verisi** | 4,076 göğüs röntgeni görüntüsü |
+| **Veri Bölünmesi** | %80 Eğitim / %20 Doğrulama |
+| **Doğruluk Oranı** | %96.1 |
+| **Eğitim Yöntemi** | İki Aşamalı İnce Ayar (Warm-up + Fine-tuning) |
+| **Regularizasyon** | Dropout (0.4 + 0.3) + L2 Weight Decay |
+| **Arayüz** | Streamlit (Medikal Karanlık Tema) |
+
+---
+
+## 📂 Proje Yapısı
+
+```
+├── app.py                  # Ana Streamlit web uygulaması
+├── model.py                # Veri seti bölme scripti
+├── model.pth               # Eğitilmiş PyTorch model ağırlıkları
+├── train_model.py           # Temel model eğitim scripti
+├── train_advanced.py        # Gelişmiş iki aşamalı eğitim scripti
+├── extract_and_split.py     # Veri seti ayırma scripti
+├── requirements.txt         # Python bağımlılıkları
+├── Proje_Raporu.md          # Detaylı proje raporu
+├── ss_dashboard.png         # Ekran görüntüsü - Ana sayfa
+├── ss_normal.png            # Ekran görüntüsü - Sağlıklı sonuç
+├── ss_pneumonia.png         # Ekran görüntüsü - Zatürre teşhisi
+└── README.md                # Bu dosya
+```
+
+---
+
+## ⚠️ Önemli Notlar
+
+- **Dataset klasörü** boyutu (~1.3 GB) nedeniyle GitHub'a yüklenmemiştir.
+- **model.pth** dosyası repo içerisinde mevcuttur, ayrıca indirmenize gerek yoktur.
+- Uygulama CPU üzerinde çalışır, GPU gerekli değildir.
+- Bu sistem bir tıbbi karar destek aracıdır, nihai teşhis uzman hekimler tarafından konulmalıdır.
+
+---
+
+## 🛠️ Kullanılan Teknolojiler
+
+- **Python** - Ana programlama dili
+- **PyTorch & Torchvision** - Derin öğrenme framework'ü
+- **Streamlit** - Web arayüzü
+- **PIL (Pillow)** - Görüntü işleme
+- **Scikit-learn** - Veri bölme ve metrikler
